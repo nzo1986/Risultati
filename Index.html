@@ -1,1 +1,244 @@
 
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torneo di Calciobalilla Umano - Riepilogo Completo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff; /* Light blue background */
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #2563eb; /* Strong blue */
+            color: #ffffff;
+            padding: 1rem;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        .match-card {
+            background-color: #e0f2fe; /* Lighter blue for match results */
+            border-radius: 8px;
+        }
+        .group-A-header { background-color: #fca5a5; } /* Red */
+        .group-A-list { background-color: #fee2e2; }
+        .group-B-header { background-color: #fcd34d; } /* Yellow */
+        .group-B-list { background-color: #fef3c7; }
+        .group-C-header { background-color: #86efac; } /* Green */
+        .group-C-list { background-color: #dcfce7; }
+        .group-D-header { background-color: #93c5fd; } /* Blue */
+        .group-D-list { background-color: #e0f2fe; }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="container mx-auto">
+        <!-- New top section with details from the poster -->
+        <div class="card p-4 sm:p-6 mb-6 sm:mb-8 text-center bg-sky-200">
+            <div class="flex flex-col items-center justify-center">
+                <img src="https://placehold.co/100x100/ffffff/000000?text=NUOVI+ORIZZONTI" alt="Logo Nuovi Orizzonti" class="h-16 w-16 mb-2">
+                <p class="text-xs text-gray-700 font-semibold">Associazione Culturale, Ricreativa, Sportiva Dilettantistica</p>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-800 tracking-wide mt-2">
+                    <span class="text-orange-600">TORNEO</span> CALCIO BALILLA UMANO
+                </h1>
+                <p class="text-sm sm:text-base text-gray-600 mt-2">
+                    dal 08 al 13 SETTEMBRE
+                </p>
+                <div class="my-4">
+                    <img src="https://placehold.co/800x400/86efac/ffffff?text=Immagine+di+una+partita+di+calcio+balilla+umano" alt="Immagine di una partita di calcio balilla umano" class="mx-auto rounded-lg shadow-lg">
+                </div>
+            </div>
+            <div class="p-2 sm:p-4 bg-green-500 rounded-lg text-white font-bold my-4">
+                <p class="text-lg sm:text-xl">Piazza Paceco</p>
+            </div>
+            <p class="text-xs sm:text-sm text-gray-600">TORNEO A SQUADRE MISTE<br>IN CAMPO 8 GIOCATORI ETA' MINIMA 14 ANNI</p>
+        </div>
+
+        <!-- Risultati delle Partite -->
+        <div class="card p-4 sm:p-6 mb-6 sm:mb-8">
+            <div class="header mb-4">
+                <h2 class="text-xl sm:text-2xl font-semibold">Risultati delle Partite</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm">
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">GLI SCIROCCATI vs ACCUMMIRATI | Risultato: 5-2</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">MEDELEINE CAFFE vs NAN STANCHI | Risultato: 3-7</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">IN FASE IMPIANTI vs SENZA CIATO | Risultato: 0-3</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">TEAM PACECO'TI vs CASEIFICIO GIAMMANCO | Risultato: 1-2</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">FUTTITTINI vs MAI NA GIOIA | Risultato: 1-6</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">NAN STANCHI vs ACCUMMIRATI | Risultato: 2-5</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">AGRIMONIA PROFUMATA vs ASD TRAPANI | Risultato: 2-2</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">ATLETICO GIN TONIC vs DATA SERVICE | Risultato: 1-1</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">MEDELEINE CAFFE vs GLI SCIROCCATI | Risultato: 1-5</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">NAN STANCHI vs MAI NA GIOIA | Risultato: 2-5</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">FUTTITTINI vs IN FASE IMPIANTI | Risultato: 3-0</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">REAL FULGA vs TEAM PACECO'TI | Risultato: 7-2</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">ASD TRAPANI vs ATLETICO GIN TONIC | Risultato: 3-1</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">AGRIMONIA PROFUMATA vs DATA SERVICE | Risultato: 0-6</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">MEDELEINE CAFFE vs ACCUMMIRATI | Risultato: 1-6</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">INSIEME X BALLATA vs CASEIFICIO GIAMMANCO | Risultato: 2-1</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">ASD TRAPANI vs DATA SERVICE | Risultato: 0-3</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">AGRIMONIA PROFUMATA vs ATLETICO GIN TONIC | Risultato: 0-7</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">MAI NA GIOIA vs SENZA CIATO | Risultato: 2-0</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">FUTTITTINI vs IN FASE IMPIANTI | Risultato: 1-2</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">REAL FULGA vs GLI SCIROCCATI | Risultato: 2-5</p>
+                </div>
+                <div class="match-card p-3 sm:p-4">
+                    <p class="font-semibold text-gray-700">INSIEME X BALLATA vs TEAM PACECO'TI | Risultato: 4-1</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Classifica gironi -->
+        <div class="card p-4 sm:p-6 mb-6 sm:mb-8">
+            <div class="header mb-4">
+                <h2 class="text-xl sm:text-2xl font-semibold">Classifica per Gironi</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 text-xs sm:text-sm">
+                <div class="card p-4 group-A-list">
+                    <div class="group-A-header p-2 rounded mb-2">
+                        <h3 class="font-bold text-base sm:text-lg text-white">Girone A</h3>
+                    </div>
+                    <ul class="list-disc list-inside space-y-1 text-gray-800">
+                        <li>INSIEME X BALLATA: Punti 7, Gol Fatti 8</li>
+                        <li>CASEIFICIO GIAMMANCO: Punti 6, Gol Fatti 13</li>
+                        <li>REAL FULGA: Punti 4, Gol Fatti 13</li>
+                        <li>TEAM PACECO'TI: Punti 0, Gol Fatti 2</li>
+                    </ul>
+                </div>
+                <div class="card p-4 group-B-list">
+                    <div class="group-B-header p-2 rounded mb-2">
+                        <h3 class="font-bold text-base sm:text-lg text-gray-800">Girone B</h3>
+                    </div>
+                    <ul class="list-disc list-inside space-y-1 text-gray-800">
+                        <li>GLI SCIROCCATI: Punti 6, Gol Fatti 13</li>
+                        <li>ACCUMMIRATI: Punti 6, Gol Fatti 13</li>
+                        <li>NAN STANCHI: Punti 3, Gol Fatti 10</li>
+                        <li>MEDELEINE CAFFE: Punti 0, Gol Fatti 4</li>
+                    </ul>
+                </div>
+                <div class="card p-4 group-C-list">
+                    <div class="group-C-header p-2 rounded mb-2">
+                        <h3 class="font-bold text-base sm:text-lg text-white">Girone C</h3>
+                    </div>
+                    <ul class="list-disc list-inside space-y-1 text-gray-800">
+                        <li>MAI NA GIOIA: Punti 9, Gol Fatti 11</li>
+                        <li>SENZA CIATO: Punti 6, Gol Fatti 8</li>
+                        <li>IN FASE IMPIANTI: Punti 3, Gol Fatti 6</li>
+                        <li>FUTTITTINI: Punti 0, Gol Fatti 4</li>
+                    </ul>
+                </div>
+                <div class="card p-4 group-D-list">
+                    <div class="group-D-header p-2 rounded mb-2">
+                        <h3 class="font-bold text-base sm:text-lg text-white">Girone D</h3>
+                    </div>
+                    <ul class="list-disc list-inside space-y-1 text-gray-800">
+                        <li>ASD TRAPANI: Punti 9, Gol Fatti 17</li>
+                        <li>DATA SERVICE: Punti 4, Gol Fatti 10</li>
+                        <li>ATLETICO GIN TONIC: Punti 4, Gol Fatti 9</li>
+                        <li>AGRIMONIA PROFUMATA: Punti 0, Gol Fatti 3</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabellone finale -->
+        <div class="card p-4 sm:p-6">
+            <div class="header mb-4">
+                <h2 class="text-xl sm:text-2xl font-semibold">Tabellone Finale</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center text-xs sm:text-sm">
+                <!-- Contro di Spareggio (Quarti di Finale) -->
+                <div class="col-span-1">
+                    <h3 class="font-bold text-base sm:text-lg text-gray-700 mb-2">Quarti di Finale</h3>
+                    <ul class="space-y-4">
+                        <li class="match-card p-2 text-center">
+                            <p><span class="font-normal">(13/09/2025 - 20:00)</span> MAI NA GIOIA vs SENZA CIATO</p>
+                        </li>
+                        <li class="match-card p-2 text-center">
+                            <p><span class="font-normal">(13/09/2025 - 20:30)</span> ASD TRAPANI vs ACCUMMIRATI</p>
+                        </li>
+                        <li class="match-card p-2 text-center">
+                            <p><span class="font-normal">(13/09/2025 - 21:00)</span> INSIEME X BALLATA vs GLI SCIROCCATI</p>
+                        </li>
+                        <li class="match-card p-2 text-center">
+                            <p><span class="font-normal">(13/09/2025 - 21:30)</span> REAL FULGA vs CASEIFICIO GIAMMANCO</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Semifinali -->
+                <div class="col-span-1 flex flex-col items-center justify-around h-full">
+                    <h3 class="font-bold text-base sm:text-lg text-gray-700 mb-2">Semifinali</h3>
+                    <div class="match-card p-2 w-full text-center mb-4">
+                        <p><span class="font-normal">(13/09/2025 - 22:00)</span> Vincente Quarto 1 vs Vincente Quarto 2</p>
+                    </div>
+                    <div class="match-card p-2 w-full text-center">
+                        <p><span class="font-normal">(13/09/2025 - 22:30)</span> Vincente Quarto 3 vs Vincente Quarto 4</p>
+                    </div>
+                </div>
+
+                <!-- Finale -->
+                <div class="col-span-1 flex flex-col items-center justify-center">
+                    <h3 class="font-bold text-base sm:text-lg text-gray-700 mb-2">Finale</h3>
+                    <div class="match-card p-4 w-full text-center">
+                        <p><span class="font-normal">(13/09/2025 - 23:00)</span> Vincente Semifinale 1 vs Vincente Semifinale 2</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
