@@ -3,238 +3,527 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torneo di Calciobalilla Umano - Riepilogo Completo</title>
+    <title>Gioco di Dadi e Chat</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f9ff; /* Light blue background */
+            background-color: #1a202c;
+            color: #e2e8f0;
         }
         .container {
-            max-width: 1200px;
+            max-width: 900px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 1rem;
         }
         .card {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            background-color: #2d3748;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #4a5568;
         }
-        .header {
-            background-color: #2563eb; /* Strong blue */
-            color: #ffffff;
+        .input-group input, .input-group button, .input-group select {
+            border: 1px solid #4a5568;
+            background-color: #4a5568;
+            color: #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            width: 100%;
+        }
+        .input-group button {
+            background-color: #4299e1;
+            transition: background-color 0.3s;
+        }
+        .input-group button:hover {
+            background-color: #3182ce;
+        }
+        .chat-container, .user-list {
+            height: 400px;
+            overflow-y: auto;
+            background-color: #1a202c;
+            border-radius: 0.75rem;
             padding: 1rem;
-            border-top-left-radius: 12px;
-            border-top-right-radius: 12px;
+            border: 1px solid #4a5568;
         }
-        .match-card {
-            background-color: #e0f2fe; /* Lighter blue for match results */
-            border-radius: 8px;
+        .message-row {
+            padding: 0.5rem;
+            border-bottom: 1px solid #4a5568;
         }
-        .group-A-header { background-color: #fca5a5; } /* Red */
-        .group-A-list { background-color: #fee2e2; }
-        .group-B-header { background-color: #fcd34d; } /* Yellow */
-        .group-B-list { background-color: #fef3c7; }
-        .group-C-header { background-color: #86efac; } /* Green */
-        .group-C-list { background-color: #dcfce7; }
-        .group-D-header { background-color: #93c5fd; } /* Blue */
-        .group-D-list { background-color: #e0f2fe; }
+        .message-row:last-child {
+            border-bottom: none;
+        }
+        .message-nickname {
+            font-weight: bold;
+            color: #90cdf4;
+        }
+        .dice-roll-message {
+            color: #f6ad55;
+            font-weight: bold;
+        }
+        .admin-section {
+            display: none;
+        }
+        .admin-section.visible {
+            display: block;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #2d3748;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .modal-content button {
+            background-color: #4299e1;
+            color: #e2e8f0;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+        .master-message {
+            background-color: #38a169;
+            color: #ffffff;
+            font-style: italic;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .loading-indicator {
+            display: none;
+            text-align: center;
+            color: #cbd5e0;
+            font-style: italic;
+        }
+        .chat-input-container {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .chat-input-container input {
+            flex-grow: 1;
+        }
     </style>
 </head>
-<body class="p-4 sm:p-8">
+<body class="bg-gray-900 text-gray-200">
 
-    <div class="container mx-auto">
-        <!-- New top section with details from the poster -->
-        <div class="card p-4 sm:p-6 mb-6 sm:mb-8 text-center bg-sky-200">
-            <div class="flex flex-col items-center justify-center">
-    
-                <p class="text-xs text-gray-700 font-semibold">Associazione Culturale, Ricreativa, Sportiva Dilettantistica</p>
-                <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-800 tracking-wide mt-2">
-                    <span class="text-orange-600">TORNEO</span> CALCIO BALILLA UMANO
-                </h1>
-                <p class="text-sm sm:text-base text-gray-600 mt-2">
-                    dal 08 al 13 SETTEMBRE
-                </p>
-            </div>
-            <div class="p-2 sm:p-4 bg-green-500 rounded-lg text-white font-bold my-4">
-                <p class="text-lg sm:text-xl">Piazza Paceco</p>
-            </div>
-            <p class="text-xs sm:text-sm text-gray-600">TORNEO A SQUADRE MISTE<br>IN CAMPO 8 GIOCATORI ETA' MINIMA 14 ANNI</p>
-        </div>
-
-        <!-- Risultati delle Partite -->
-        <div class="card p-4 sm:p-6 mb-6 sm:mb-8">
-            <div class="header mb-4">
-                <h2 class="text-xl sm:text-2xl font-semibold">Risultati delle Partite</h2>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm">
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">GLI SCIROCCATI vs ACCUMMIRATI | Risultato: 5-2</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">MEDELEINE CAFFE vs NAN STANCHI | Risultato: 3-7</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">IN FASE IMPIANTI vs SENZA CIATO | Risultato: 0-3</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">TEAM PACECO'TI vs CASEIFICIO GIAMMANCO | Risultato: 1-2</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">FUTTITTINI vs MAI NA GIOIA | Risultato: 1-6</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">NAN STANCHI vs ACCUMMIRATI | Risultato: 2-5</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">AGRIMONIA PROFUMATA vs ASD TRAPANI | Risultato: 2-2</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">ATLETICO GIN TONIC vs DATA SERVICE | Risultato: 1-1</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">MEDELEINE CAFFE vs GLI SCIROCCATI | Risultato: 1-5</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">NAN STANCHI vs MAI NA GIOIA | Risultato: 2-5</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">FUTTITTINI vs IN FASE IMPIANTI | Risultato: 3-0</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">REAL FULGA vs TEAM PACECO'TI | Risultato: 7-2</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">ASD TRAPANI vs ATLETICO GIN TONIC | Risultato: 3-1</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">AGRIMONIA PROFUMATA vs DATA SERVICE | Risultato: 0-6</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">MEDELEINE CAFFE vs ACCUMMIRATI | Risultato: 1-6</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">INSIEME X BALLATA vs CASEIFICIO GIAMMANCO | Risultato: 2-1</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">ASD TRAPANI vs DATA SERVICE | Risultato: 0-3</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">AGRIMONIA PROFUMATA vs ATLETICO GIN TONIC | Risultato: 0-7</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">MAI NA GIOIA vs SENZA CIATO | Risultato: 2-0</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">FUTTITTINI vs IN FASE IMPIANTI | Risultato: 1-2</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">REAL FULGA vs GLI SCIROCCATI | Risultato: 2-5</p>
-                </div>
-                <div class="match-card p-3 sm:p-4">
-                    <p class="font-semibold text-gray-700">INSIEME X BALLATA vs TEAM PACECO'TI | Risultato: 4-1</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Classifica gironi -->
-        <div class="card p-4 sm:p-6 mb-6 sm:mb-8">
-            <div class="header mb-4">
-                <h2 class="text-xl sm:text-2xl font-semibold">Classifica per Gironi</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 text-xs sm:text-sm">
-                <div class="card p-4 group-A-list">
-                    <div class="group-A-header p-2 rounded mb-2">
-                        <h3 class="font-bold text-base sm:text-lg text-white">Girone A</h3>
-                    </div>
-                    <ul class="list-disc list-inside space-y-1 text-gray-800">
-                        <li>INSIEME X BALLATA: Punti 7, Gol Fatti 8</li>
-                        <li>CASEIFICIO GIAMMANCO: Punti 6, Gol Fatti 13</li>
-                        <li>REAL FULGA: Punti 4, Gol Fatti 13</li>
-                        <li>TEAM PACECO'TI: Punti 0, Gol Fatti 2</li>
-                    </ul>
-                </div>
-                <div class="card p-4 group-B-list">
-                    <div class="group-B-header p-2 rounded mb-2">
-                        <h3 class="font-bold text-base sm:text-lg text-gray-800">Girone B</h3>
-                    </div>
-                    <ul class="list-disc list-inside space-y-1 text-gray-800">
-                        <li>GLI SCIROCCATI: Punti 6, Gol Fatti 13</li>
-                        <li>ACCUMMIRATI: Punti 6, Gol Fatti 13</li>
-                        <li>NAN STANCHI: Punti 3, Gol Fatti 10</li>
-                        <li>MEDELEINE CAFFE: Punti 0, Gol Fatti 4</li>
-                    </ul>
-                </div>
-                <div class="card p-4 group-C-list">
-                    <div class="group-C-header p-2 rounded mb-2">
-                        <h3 class="font-bold text-base sm:text-lg text-white">Girone C</h3>
-                    </div>
-                    <ul class="list-disc list-inside space-y-1 text-gray-800">
-                        <li>MAI NA GIOIA: Punti 9, Gol Fatti 11</li>
-                        <li>SENZA CIATO: Punti 6, Gol Fatti 8</li>
-                        <li>IN FASE IMPIANTI: Punti 3, Gol Fatti 6</li>
-                        <li>FUTTITTINI: Punti 0, Gol Fatti 4</li>
-                    </ul>
-                </div>
-                <div class="card p-4 group-D-list">
-                    <div class="group-D-header p-2 rounded mb-2">
-                        <h3 class="font-bold text-base sm:text-lg text-white">Girone D</h3>
-                    </div>
-                    <ul class="list-disc list-inside space-y-1 text-gray-800">
-                        <li>ASD TRAPANI: Punti 9, Gol Fatti 17</li>
-                        <li>DATA SERVICE: Punti 4, Gol Fatti 10</li>
-                        <li>ATLETICO GIN TONIC: Punti 4, Gol Fatti 9</li>
-                        <li>AGRIMONIA PROFUMATA: Punti 0, Gol Fatti 3</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tabellone finale -->
-        <div class="card p-4 sm:p-6">
-            <div class="header mb-4">
-                <h2 class="text-xl sm:text-2xl font-semibold">Tabellone Finale</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center text-xs sm:text-sm">
-                <!-- Contro di Spareggio (Quarti di Finale) -->
-                <div class="col-span-1">
-                    <h3 class="font-bold text-base sm:text-lg text-gray-700 mb-2">Quarti di Finale</h3>
-                    <ul class="space-y-4">
-                        <li class="match-card p-2 text-center">
-                            <p><span class="font-normal">(13/09/2025 - 20:00)</span> MAI NA GIOIA vs DATA SERVICE</p>
-                        </li>
-                        <li class="match-card p-2 text-center">
-                            <p><span class="font-normal">(13/09/2025 - 20:30)</span> ASD TRAPANI vs SENZA CIATO</p>
-                        </li>
-                        <li class="match-card p-2 text-center">
-                            <p><span class="font-normal">(13/09/2025 - 21:00)</span> INSIEME X BALLATA vs ACCUMMIRATI</p>
-                        </li>
-                        <li class="match-card p-2 text-center">
-                            <p><span class="font-normal">(13/09/2025 - 21:30)</span> GLI SCIROCCATI vs CASEIFICIO GIAMMANCO</p>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Semifinali -->
-                <div class="col-span-1 flex flex-col items-center justify-around h-full">
-                    <h3 class="font-bold text-base sm:text-lg text-gray-700 mb-2">Semifinali</h3>
-                    <div class="match-card p-2 w-full text-center mb-4">
-                        <p><span class="font-normal">(13/09/2025 - 22:00)</span> Vincente Quarto 1 vs Vincente Quarto 2</p>
-                    </div>
-                    <div class="match-card p-2 w-full text-center">
-                        <p><span class="font-normal">(13/09/2025 - 22:30)</span> Vincente Quarto 3 vs Vincente Quarto 4</p>
-                    </div>
-                </div>
-
-                <!-- Finale -->
-                <div class="col-span-1 flex flex-col items-center justify-center">
-                    <h3 class="font-bold text-base sm:text-lg text-gray-700 mb-2">Finale</h3>
-                    <div class="match-card p-4 w-full text-center">
-                        <p><span class="font-normal">(13/09/2025 - 23:00)</span> Vincente Semifinale 1 vs Vincente Semifinale 2</p>
-                    </div>
-                </div>
-            </div>
+    <!-- Modal per la notifica -->
+    <div id="alert-modal" class="modal">
+        <div class="modal-content">
+            <p id="alert-message" class="text-xl"></p>
+            <button onclick="document.getElementById('alert-modal').style.display='none'">OK</button>
         </div>
     </div>
 
+    <div id="main-app" class="hidden">
+        <div class="container py-8">
+            <h1 class="text-4xl font-bold text-center text-white mb-6">🎲 Gioco di Dadi e Chat 💬</h1>
+
+            <!-- Sezione di gioco -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Sezione per i dadi -->
+                <div class="card flex flex-col items-center justify-center">
+                    <h2 class="text-2xl font-semibold mb-4">Lancia il dado</h2>
+                    <div id="dice-display" class="text-6xl text-center mb-4">
+                        <i class="fas fa-dice-one"></i>
+                    </div>
+                    <button id="roll-button" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full w-full max-w-xs transition duration-300">
+                        Lancia D6
+                    </button>
+                </div>
+
+                <!-- Sezione chat -->
+                <div class="card flex flex-col">
+                    <h2 class="text-2xl font-semibold mb-4">Chat</h2>
+                    <div id="chat-messages" class="chat-container mb-4 flex-grow"></div>
+                    <div class="chat-input-container mt-auto">
+                        <input id="chat-input" type="text" placeholder="Scrivi un messaggio..." class="flex-grow bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 focus:outline-none focus:border-blue-500">
+                        <button id="send-button" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg transition duration-300">
+                            Invia
+                        </button>
+                        <button id="ask-master-button" class="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-lg transition duration-300">
+                            Chiedi al Master ✨
+                        </button>
+                    </div>
+                    <div id="loading-indicator" class="loading-indicator mt-2">Caricamento...</div>
+                </div>
+            </div>
+
+            <!-- Elenco degli utenti -->
+            <div class="card">
+                <h2 class="text-2xl font-semibold mb-4">Utenti Online</h2>
+                <div id="user-list" class="user-list"></div>
+            </div>
+
+            <!-- Sezione Admin (inizialmente nascosta) -->
+            <div id="admin-panel" class="card admin-section">
+                <h2 class="text-2xl font-semibold mb-4">Pannello Admin</h2>
+                <div id="admin-user-list" class="user-list"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Login -->
+    <div id="login-screen" class="min-h-screen flex items-center justify-center bg-gray-900">
+        <div class="card w-full max-w-sm">
+            <h2 class="text-3xl font-bold text-center mb-6">Accedi</h2>
+            <div class="mb-4">
+                <label for="nickname" class="block text-sm font-medium mb-1">Nickname</label>
+                <input id="nickname" type="text" placeholder="Nickname" class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 focus:outline-none focus:border-blue-500">
+            </div>
+            <div class="mb-6">
+                <label for="password" class="block text-sm font-medium mb-1">Password</label>
+                <input id="password" type="password" placeholder="Password" class="w-full bg-gray-700 text-white px-4 py-2 rounded-lg border border-gray-600 focus:outline-none focus:border-blue-500">
+            </div>
+            <button id="login-button" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition duration-300">
+                Entra
+            </button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithCustomToken, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, addDoc, collection, query, where, onSnapshot, getDocs, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Variabili globali fornite dall'ambiente
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : undefined;
+
+        // Inizializzazione Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        // Riferimenti agli elementi del DOM
+        const loginScreen = document.getElementById('login-screen');
+        const mainApp = document.getElementById('main-app');
+        const nicknameInput = document.getElementById('nickname');
+        const passwordInput = document.getElementById('password');
+        const loginButton = document.getElementById('login-button');
+        const rollButton = document.getElementById('roll-button');
+        const diceDisplay = document.getElementById('dice-display');
+        const chatInput = document.getElementById('chat-input');
+        const sendButton = document.getElementById('send-button');
+        const chatMessages = document.getElementById('chat-messages');
+        const userListDiv = document.getElementById('user-list');
+        const adminPanel = document.getElementById('admin-panel');
+        const adminUserList = document.getElementById('admin-user-list');
+        const askMasterButton = document.getElementById('ask-master-button');
+        const loadingIndicator = document.getElementById('loading-indicator');
+
+        let currentUser = null;
+        let isAuthReady = false;
+
+        function showMessage(message) {
+            const modal = document.getElementById('alert-modal');
+            const modalMessage = document.getElementById('alert-message');
+            modalMessage.textContent = message;
+            modal.style.display = 'flex';
+        }
+
+        async function login() {
+            const nickname = nicknameInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (!nickname || !password) {
+                showMessage('Inserisci nickname e password.');
+                return;
+            }
+
+            const isKnownUser = (nickname === 'Admin' && password === 'Aurorapad5');
+            
+            try {
+                // Autenticazione con un token personalizzato
+                await signInWithCustomToken(auth, initialAuthToken);
+                const uid = auth.currentUser.uid;
+
+                // Salvataggio dell'utente nel database Firestore
+                const userDocRef = doc(db, `/artifacts/${appId}/users/`, uid);
+                await setDoc(userDocRef, {
+                    nickname: nickname,
+                    isAdmin: isKnownUser,
+                    // NON SALVARE MAI LA PASSWORD IN CHIARO in un'applicazione reale!
+                    password: password
+                }, { merge: true });
+
+                currentUser = {
+                    uid: uid,
+                    nickname: nickname,
+                    isAdmin: isKnownUser
+                };
+
+                // Aggiorna lo stato di presenza
+                const presenceDocRef = doc(db, `/artifacts/${appId}/public/data/online_users`, uid);
+                await setDoc(presenceDocRef, {
+                    nickname: nickname,
+                    lastSeen: new Date(),
+                    isAdmin: isKnownUser,
+                    userId: uid
+                });
+
+                // Passa alla schermata principale
+                loginScreen.classList.add('hidden');
+                mainApp.classList.remove('hidden');
+
+                if (currentUser.isAdmin) {
+                    adminPanel.classList.add('visible');
+                    listenForAdminUsers();
+                }
+
+                // Avvia l'ascolto per messaggi e utenti
+                listenForMessages();
+                listenForUsers();
+
+            } catch (error) {
+                console.error('Errore durante l\'autenticazione:', error);
+                showMessage('Credenziali non valide o errore di connessione.');
+            }
+        }
+
+        function handleDiceRoll() {
+            if (!currentUser) {
+                showMessage('Devi prima effettuare il login.');
+                return;
+            }
+            const roll = Math.floor(Math.random() * 6) + 1;
+            const diceIcon = document.createElement('i');
+            diceIcon.className = `fas fa-dice-${['one', 'two', 'three', 'four', 'five', 'six'][roll - 1]}`;
+            diceDisplay.innerHTML = '';
+            diceDisplay.appendChild(diceIcon);
+
+            // Invia il risultato del dado come messaggio in chat
+            addMessageToChat(`lancia il dado e ottiene <span class="dice-roll-message">${roll}</span>`, false, false);
+        }
+
+        function handleSendMessage() {
+            if (!currentUser) {
+                showMessage('Devi prima effettuare il login.');
+                return;
+            }
+            const messageText = chatInput.value.trim();
+            if (messageText) {
+                addMessageToChat(messageText, false, false);
+                chatInput.value = '';
+            }
+        }
+
+        async function addMessageToChat(text, isMasterMessage, isDiceRoll) {
+            try {
+                await addDoc(collection(db, `/artifacts/${appId}/public/data/messages`), {
+                    nickname: isMasterMessage ? 'Master dei Dadi' : currentUser.nickname,
+                    text: text,
+                    isDiceRoll: isDiceRoll,
+                    isMaster: isMasterMessage,
+                    timestamp: new Date()
+                });
+            } catch (error) {
+                console.error("Errore nell'invio del messaggio:", error);
+                showMessage("Impossibile inviare il messaggio. Riprova.");
+            }
+        }
+
+        async function askMaster() {
+            const userPrompt = chatInput.value.trim();
+            if (!userPrompt) {
+                showMessage('Scrivi una richiesta per il Maestro.');
+                return;
+            }
+            
+            loadingIndicator.style.display = 'block';
+            
+            let retryCount = 0;
+            const maxRetries = 3;
+            const baseDelay = 1000;
+
+            const systemPrompt = "Sei un maestro di dadi e un narratore fantasy. Rispondi alle richieste degli utenti con un tono avventuroso e narrativo. Se l'utente ti fa una domanda generica, rispondi con un breve racconto o un consiglio per l'avventura. Non rompere la tua persona.";
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userPrompt }] }],
+                tools: [{ "google_search": {} }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                }
+            };
+
+            const fetchWithRetry = async () => {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (response.status === 429 && retryCount < maxRetries) {
+                        const delay = baseDelay * Math.pow(2, retryCount);
+                        retryCount++;
+                        return new Promise(resolve => setTimeout(() => resolve(fetchWithRetry()), delay));
+                    }
+                    if (!response.ok) {
+                        throw new Error(`API error: ${response.statusText}`);
+                    }
+                    const result = await response.json();
+                    return result;
+                } catch (error) {
+                    throw error;
+                }
+            };
+
+            try {
+                const result = await fetchWithRetry();
+                const candidate = result.candidates?.[0];
+                let generatedText = "Il Maestro dei Dadi non ha una risposta per questa domanda.";
+
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    generatedText = candidate.content.parts[0].text;
+                }
+
+                addMessageToChat(generatedText, true, false);
+                chatInput.value = '';
+
+            } catch (error) {
+                console.error("Errore API Gemini:", error);
+                addMessageToChat("Il Maestro dei Dadi è momentaneamente indisposto. Riprova più tardi.", true, false);
+            } finally {
+                loadingIndicator.style.display = 'none';
+            }
+        }
+
+        // Ascolta i messaggi in tempo reale
+        function listenForMessages() {
+            onSnapshot(collection(db, `/artifacts/${appId}/public/data/messages`), (snapshot) => {
+                chatMessages.innerHTML = '';
+                const messages = [];
+                snapshot.forEach(doc => {
+                    messages.push({ id: doc.id, ...doc.data() });
+                });
+
+                messages.sort((a, b) => a.timestamp.toDate() - b.timestamp.toDate());
+
+                messages.forEach(message => {
+                    const messageElement = document.createElement('div');
+                    let content;
+                    if (message.isMaster) {
+                        messageElement.className = 'master-message';
+                        content = `<span class="font-bold">Master dei Dadi:</span> ${message.text}`;
+                    } else {
+                        messageElement.className = 'message-row';
+                        content = `<span class="message-nickname">${message.nickname}:</span> ${message.text}`;
+                    }
+                    messageElement.innerHTML = content;
+                    chatMessages.appendChild(messageElement);
+                });
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, (error) => {
+                console.error('Errore durante il recupero dei messaggi:', error);
+            });
+        }
+
+        // Ascolta gli utenti online in tempo reale
+        function listenForUsers() {
+            onSnapshot(collection(db, `/artifacts/${appId}/public/data/online_users`), (snapshot) => {
+                userListDiv.innerHTML = '';
+                const users = [];
+                snapshot.forEach(doc => {
+                    users.push({ id: doc.id, ...doc.data() });
+                });
+                
+                users.sort((a, b) => a.nickname.localeCompare(b.nickname));
+
+                users.forEach(user => {
+                    const userElement = document.createElement('div');
+                    userElement.className = 'message-row flex justify-between items-center';
+                    userElement.textContent = user.nickname;
+                    if (user.isAdmin) {
+                        userElement.innerHTML = `${user.nickname} <i class="fas fa-crown text-yellow-400 ml-2" title="Admin"></i>`;
+                    }
+                    userListDiv.appendChild(userElement);
+                });
+            }, (error) => {
+                console.error('Errore durante il recupero degli utenti:', error);
+            });
+        }
+
+        // Ascolta gli utenti totali per l'admin
+        function listenForAdminUsers() {
+            onSnapshot(collection(db, `/artifacts/${appId}/users`), (snapshot) => {
+                adminUserList.innerHTML = '';
+                const users = [];
+                snapshot.forEach(doc => {
+                    users.push({ id: doc.id, ...doc.data() });
+                });
+
+                users.sort((a, b) => a.nickname.localeCompare(b.nickname));
+
+                users.forEach(user => {
+                    const userElement = document.createElement('div');
+                    userElement.className = 'message-row flex justify-between items-center';
+                    let status = '<span class="text-red-500">Offline</span>';
+                    // Nota: Per un controllo dello stato online/offline più robusto, si dovrebbe usare un campo "last seen" aggiornato regolarmente.
+                    status = '<span class="text-green-500">Online</span>';
+                    userElement.innerHTML = `
+                        <span>${user.nickname}</span>
+                        <span>
+                            ${status}
+                            ${user.isAdmin ? '<i class="fas fa-crown text-yellow-400 ml-2" title="Admin"></i>' : ''}
+                        </span>
+                    `;
+                    adminUserList.appendChild(userElement);
+                });
+            }, (error) => {
+                console.error('Errore durante il recupero degli utenti per l\'admin:', error);
+            });
+        }
+
+        // Event Listeners
+        loginButton.addEventListener('click', login);
+        rollButton.addEventListener('click', handleDiceRoll);
+        sendButton.addEventListener('click', handleSendMessage);
+        askMasterButton.addEventListener('click', askMaster);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSendMessage();
+            }
+        });
+
+        // Autenticazione iniziale
+        onAuthStateChanged(auth, async (user) => {
+            if (!isAuthReady) {
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                isAuthReady = true;
+            }
+        });
+
+    </script>
 </body>
 </html>
